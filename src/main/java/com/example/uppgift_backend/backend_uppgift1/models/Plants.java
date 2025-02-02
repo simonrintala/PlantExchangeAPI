@@ -2,6 +2,7 @@ package com.example.uppgift_backend.backend_uppgift1.models;
 
 
 import com.example.uppgift_backend.backend_uppgift1.PlantStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.annotation.Id;
@@ -46,6 +47,7 @@ public class Plants {
     }
 
     @DBRef
+    @JsonIgnore //Den började loopa i en evighet i postman och gjorde min dator helt oanvändbar, detta var det jag hitta online.
     private Users user;
 
     public String getId() {

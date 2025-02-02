@@ -2,6 +2,7 @@ package com.example.uppgift_backend.backend_uppgift1.controllers;
 
 import com.example.uppgift_backend.backend_uppgift1.PlantStatus;
 import com.example.uppgift_backend.backend_uppgift1.models.Plants;
+import com.example.uppgift_backend.backend_uppgift1.models.Users;
 import com.example.uppgift_backend.backend_uppgift1.repsitories.PlantsRepsitory;
 import com.example.uppgift_backend.backend_uppgift1.repsitories.UsersRepository;
 import jakarta.validation.Valid;
@@ -24,13 +25,26 @@ public class PlantsController {
 
     //Lägg till en ny växt för byte/försäljning
     @PostMapping
-    public ResponseEntity <Plants> createPlant(@Valid @RequestBody Plants plants) {
+    public ResponseEntity <Plants> createPlant(@Valid @RequestBody Plants plants, @RequestParam String usersId) {
+        Users user = usersRepository.findById(usersId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        if (plants.getUser() != null && usersRepository.existsById(plants.getUser().getId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+        long activePlantsCount = user.getPlants().stream()
+                .filter(p -> p.getPlantStatus() != PlantStatus.SOLD) // Only active listings
+                .count();
+
+        if (activePlantsCount >= 10) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Users cannot have more than 10 active listings");
+        }
+
+        plants.setUser(user);
+        if (!usersRepository.existsById(usersId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
 
         Plants savedPlant = plantsRepsitory.save(plants);
+        user.getPlants().add(savedPlant);
+        usersRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPlant);
     }
 
