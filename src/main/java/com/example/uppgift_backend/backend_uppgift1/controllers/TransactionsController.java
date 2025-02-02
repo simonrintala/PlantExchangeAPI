@@ -67,6 +67,11 @@ public class TransactionsController {
 
 
         } else if (transaction.getTransactionType().equalsIgnoreCase("PURCHASE")) {
+            //detta med anotherString vet jag helt ärligt in om man ska använda på detta sättet men jag började med ENUM
+            //t.ex som du kanske ser på "PlantStatus" men fick så mycket problem och svårt att få till allting så som jag hade
+            //tänkt. Detta var något jag bara snubblade över.
+            //https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#equalsIgnoreCase-java.lang.String-
+            //
             if (transaction.getAmount() == null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid purchase, plant need to have a price");
             }
@@ -79,6 +84,8 @@ public class TransactionsController {
         Transactions newTransaction = transactionsRepository.save(transaction);
         return ResponseEntity.ok(newTransaction);
     }
+    //Mycket utav detta tog jag inspiration ifrån spring.io hemsida
+    //https://spring.io/guides/tutorials/rest
 
     //Godkänna
     @PostMapping("/{id}/approved")

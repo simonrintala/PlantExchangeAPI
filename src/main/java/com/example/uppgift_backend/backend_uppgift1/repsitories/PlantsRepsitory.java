@@ -9,4 +9,5 @@ import java.util.List;
 public interface PlantsRepsitory extends MongoRepository<Plants, String> {
     List<Plants> findByPlantStatus (PlantStatus plantStatus);
     //gjorde samma sak här som i transaction för det fungerade.
+    //https://docs.spring.io/spring-data/mongodb/reference/repositories/definition.html
 }

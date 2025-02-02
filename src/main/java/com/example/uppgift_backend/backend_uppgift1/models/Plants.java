@@ -15,19 +15,14 @@ public class Plants {
     private String id;
 
     private String plantName;
-
     private String plantSize;
-
     private String plantType;
-
     private String plantLightNeeds;
-
     private String plantWaterNeeds;
 
     @Min(value = 0, message = "Difficulty cannot be lower than 0")
     @Max(value = 5, message = "Difficulty cannot be higher than 5")
     private Integer plantDifficulty;
-
     private String plantTrade;
 
     @Min(value = 50, message = "minimum price is 50.")
@@ -35,7 +30,6 @@ public class Plants {
     private Double plantPrice;
 
     private String plantPicture;
-
     private PlantStatus plantStatus;
 
     public Users getUser() {

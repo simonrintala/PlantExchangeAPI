@@ -46,7 +46,8 @@ public class PlantsController {
         user.getPlants().add(savedPlant);
         usersRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPlant);
-    }
+    } //jag vet att denna metoden är rätt rörig och kanske till och med onödig på många sätt.
+    //men det va detta jag fick ihop som verkar funka så som jag hade min vision om hur jag skulle bygga upp koden.
 
     //Hämta en lista över alla tillgängliga växter
     @GetMapping
@@ -103,7 +104,7 @@ public class PlantsController {
         }
             Plants updatedPlant = plantsRepsitory.save(existingPlant);
             return ResponseEntity.ok(updatedPlant);
-    }
+    } //tänker att man ska få ändra allt då man kanske inte får sålt sin växt och behöver ändra många utav saker om den växer osv.
 
 
     //Ta bort en växtannons

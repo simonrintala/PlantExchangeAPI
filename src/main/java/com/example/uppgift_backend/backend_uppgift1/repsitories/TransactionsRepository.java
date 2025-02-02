@@ -8,4 +8,5 @@ import java.util.List;
 public interface TransactionsRepository extends MongoRepository<Transactions, String> {
     List<Transactions> findByUsersId(String usersId);
     //Vet inte vad jag gjorde här och transactionscontroller men allt gick sönder och sen gjorde jag såhär och allt började fungera?
+    //https://docs.spring.io/spring-data/mongodb/reference/repositories/definition.html
 }
