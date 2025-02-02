@@ -1,7 +1,9 @@
 package com.example.uppgift_backend.backend_uppgift1.controllers;
 
+import com.example.uppgift_backend.backend_uppgift1.PlantStatus;
 import com.example.uppgift_backend.backend_uppgift1.models.Plants;
 import com.example.uppgift_backend.backend_uppgift1.repsitories.PlantsRepsitory;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ public class PlantsController {
 
     //Lägg till en ny växt för byte/försäljning
     @PostMapping
-    public ResponseEntity <Plants> createPlant(@RequestBody Plants plants) {
+    public ResponseEntity <Plants> createPlant(@Valid @RequestBody Plants plants) {
         Plants savedPlant = plantsRepsitory.save(plants);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPlant);
     }
@@ -93,7 +95,10 @@ public class PlantsController {
 
 
     //Hämta endast tillgängliga växter
-    //@GetMapping
+    @GetMapping("/available")
+    public  List<Plants> getAvailablePlants() {
+        return plantsRepsitory.findByPlantStatus(PlantStatus.AVAILABLE);
+    }
 
 
 

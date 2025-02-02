@@ -1,6 +1,7 @@
 package com.example.uppgift_backend.backend_uppgift1.models;
 
 
+import com.example.uppgift_backend.backend_uppgift1.PlantStatus;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.annotation.Id;
@@ -27,11 +28,13 @@ public class Plants {
 
     private String plantTrade;
 
+    @Min(value = 50, message = "minimum price is 50.")
+    @Max(value = 1000, message = "Maximum price is 1000.")
     private Double plantPrice;
 
     private String plantPicture;
 
-    private String plantStatus;
+    private PlantStatus plantStatus;
 
     public String getId() {
         return id;
@@ -97,11 +100,11 @@ public class Plants {
         this.plantTrade = plantTrade;
     }
 
-    public Double getPlantPrice() {
+    public @Min(value = 50, message = "minimum price is 50.") @Max(value = 1000, message = "Maximum price is 1000.") Double getPlantPrice() {
         return plantPrice;
     }
 
-    public void setPlantPrice(Double plantPrice) {
+    public void setPlantPrice(@Min(value = 50, message = "minimum price is 50.") @Max(value = 1000, message = "Maximum price is 1000.") Double plantPrice) {
         this.plantPrice = plantPrice;
     }
 
@@ -113,11 +116,11 @@ public class Plants {
         this.plantPicture = plantPicture;
     }
 
-    public String getPlantStatus() {
+    public PlantStatus getPlantStatus() {
         return plantStatus;
     }
 
-    public void setPlantStatus(String plantStatus) {
+    public void setPlantStatus(PlantStatus plantStatus) {
         this.plantStatus = plantStatus;
     }
 
