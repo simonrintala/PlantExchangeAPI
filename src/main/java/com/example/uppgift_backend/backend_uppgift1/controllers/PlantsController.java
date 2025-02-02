@@ -3,6 +3,7 @@ package com.example.uppgift_backend.backend_uppgift1.controllers;
 import com.example.uppgift_backend.backend_uppgift1.PlantStatus;
 import com.example.uppgift_backend.backend_uppgift1.models.Plants;
 import com.example.uppgift_backend.backend_uppgift1.repsitories.PlantsRepsitory;
+import com.example.uppgift_backend.backend_uppgift1.repsitories.UsersRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,17 @@ public class PlantsController {
     @Autowired
     private PlantsRepsitory plantsRepsitory;
 
+    @Autowired
+    private UsersRepository usersRepository;
+
     //Lägg till en ny växt för byte/försäljning
     @PostMapping
     public ResponseEntity <Plants> createPlant(@Valid @RequestBody Plants plants) {
+
+        if (plants.getUser() != null && usersRepository.existsById(plants.getUser().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+        }
+
         Plants savedPlant = plantsRepsitory.save(plants);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPlant);
     }

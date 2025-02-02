@@ -5,6 +5,7 @@ import com.example.uppgift_backend.backend_uppgift1.PlantStatus;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "plants")
@@ -35,6 +36,17 @@ public class Plants {
     private String plantPicture;
 
     private PlantStatus plantStatus;
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    @DBRef
+    private Users user;
 
     public String getId() {
         return id;
