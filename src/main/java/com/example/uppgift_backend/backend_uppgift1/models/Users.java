@@ -3,12 +3,24 @@ package com.example.uppgift_backend.backend_uppgift1.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "users")
 public class Users {
     @Id
     private String id;
     private String username;
     private String email;
+
+    private List<Plants> plants;
+
+    public List<Plants> getPlants() {
+        return plants;
+    }
+
+    public void setPlants(List<Plants> plants) {
+        this.plants = plants;
+    }
 
     public String getId() {
         return id;
