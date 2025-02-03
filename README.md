@@ -5,7 +5,7 @@ https://github.com/simonrintala/backend_uppgift_1
 https://drive.google.com/file/d/1GYwR3SMx0CZTzHOUYMIlLlGL99b573tJ/view?usp=sharing
 
 ## Video med kodgenomgång
-
+https://youtu.be/t1QcqinD5jQ
 # README content
 ### Installations instruktioner
 Clona github repo (länk:https://github.com/simonrintala/backend_uppgift_1)
