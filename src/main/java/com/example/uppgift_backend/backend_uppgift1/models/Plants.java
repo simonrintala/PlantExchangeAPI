@@ -28,6 +28,7 @@ public class Plants {
     @Min(value = 50, message = "minimum price is 50.")
     @Max(value = 1000, message = "Maximum price is 1000.")
     private Double plantPrice;
+    //Prissatta växter måste ha ett fast pris mellan 50-1000 kr AFFÄRSREGEL 4
 
     private String plantPicture;
     private PlantStatus plantStatus;
@@ -37,7 +38,7 @@ public class Plants {
         if ("YES".equalsIgnoreCase(this.plantTrade) && this.plantPrice != null && this.plantPrice > 0) {
             throw new IllegalArgumentException("A plant up for trade can't be sold.");
         }
-    }
+    }       //Växter markerade för byte kan endast bytas mot andra växter, inte säljas AFFÄRSREGEL 2
 
 
     public Users getUser() {

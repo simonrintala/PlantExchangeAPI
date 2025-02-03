@@ -28,6 +28,8 @@ public class PlantsController {
     public ResponseEntity <Plants> createPlant(@Valid @RequestBody Plants plants, @RequestParam String usersId) {
         Users user = usersRepository.findById(usersId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        //Prissatta växter måste ha ett fast pris mellan 50-1000 kr AFFÄRSREGEL 4
+        //Valid från plants models där den ligger som min 50, max 1000
 
         long activePlantsCount = user.getPlants().stream()
                 .filter(p -> p.getPlantStatus() != PlantStatus.SOLD) // Only active listings
@@ -35,7 +37,7 @@ public class PlantsController {
 
         if (activePlantsCount >= 10) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Users cannot have more than 10 active listings");
-        }
+        } //En användare kan inte ha mer än 10 aktiva annonser samtidigt AFFÄRSREGEL 1
 
         plants.setUser(user);
         if (!usersRepository.existsById(usersId)) {
@@ -43,6 +45,7 @@ public class PlantsController {
         }
 
         plants.validateTradeRules();
+        //Växter markerade för byte kan endast bytas mot andra växter, inte säljas AFFÄRSREGEL 2
 
         Plants savedPlant = plantsRepsitory.save(plants);
         user.getPlants().add(savedPlant);
@@ -106,6 +109,7 @@ public class PlantsController {
         }
 
         existingPlant.validateTradeRules();
+        //Växter markerade för byte kan endast bytas mot andra växter, inte säljas AFFÄRSREGEL 2
 
             Plants updatedPlant = plantsRepsitory.save(existingPlant);
             return ResponseEntity.ok(updatedPlant);

@@ -65,6 +65,8 @@ public class TransactionsController {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid transaction, both parties need plant ID:s to complete a trade.");
             }
             transaction.setTransactionStatus("PENDING"); //If trade
+            //kolla så att objektet har "trade" och id
+            //isåfall skapa en ny status "pending"
 
 
         } else if (transaction.getTransactionType().equalsIgnoreCase("PURCHASE")) {
@@ -98,10 +100,11 @@ public class TransactionsController {
             transaction.setTransactionStatus("APPROVED");
             transactionsRepository.save(transaction);
             return ResponseEntity.ok(transaction);
+            //kolla så att objektet har typ "trade" och isåfall sätt status till "approved"
         }else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid transaction type");
         }
-    }
+    }   //Vid byte måste båda parter godkänna bytet innan det genomförs AFFÄRSREGEL 3
 
     //Genomföra
     @PostMapping("/{id}/Competed")
@@ -111,10 +114,11 @@ public class TransactionsController {
 
         if (!transaction.getTransactionType().equalsIgnoreCase("APPROVED")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid transaction type");
+            //om transactiontype inte är "approved" kan den inte bli completed
         }
         transaction.setTransactionStatus("COMPLETED");
         transactionsRepository.save(transaction);
         return ResponseEntity.ok(transaction);
-    }
+    } //Vid byte måste båda parter godkänna bytet innan det genomförs AFFÄRSREGEL 3
 
 }
