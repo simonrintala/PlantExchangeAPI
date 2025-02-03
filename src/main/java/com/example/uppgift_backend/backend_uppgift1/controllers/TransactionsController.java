@@ -49,11 +49,12 @@ public class TransactionsController {
     }
 
     //Hämta alla transaktioner för en specifik användare
-    @GetMapping("/users/{userId}")
+    @GetMapping("/users/{usersId}")
     public ResponseEntity<List<Transactions>> getTransactionByUsersId(@PathVariable String usersId) {
         List<Transactions> transactions = transactionsRepository.findByUsersId(usersId);
         //Vet inte vad jag gjorde här och inteface men allt gick sönder och sen gjorde jag såhär och allt började fungera?
         return ResponseEntity.ok(transactions);
+
     }
 
     //Registrera en ny transaktion (byte eller köp)

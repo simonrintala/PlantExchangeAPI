@@ -42,6 +42,8 @@ public class PlantsController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
 
+        plants.validateTradeRules();
+
         Plants savedPlant = plantsRepsitory.save(plants);
         user.getPlants().add(savedPlant);
         usersRepository.save(user);
@@ -102,6 +104,9 @@ public class PlantsController {
         if (plants.getPlantStatus() != null) {
             existingPlant.setPlantStatus(plants.getPlantStatus());
         }
+
+        existingPlant.validateTradeRules();
+
             Plants updatedPlant = plantsRepsitory.save(existingPlant);
             return ResponseEntity.ok(updatedPlant);
     } //tänker att man ska få ändra allt då man kanske inte får sålt sin växt och behöver ändra många utav saker om den växer osv.

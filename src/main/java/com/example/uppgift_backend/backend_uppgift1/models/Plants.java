@@ -31,6 +31,14 @@ public class Plants {
 
     private String plantPicture;
     private PlantStatus plantStatus;
+    //kunde använt Set<Role> roles
+
+    public void validateTradeRules() {
+        if ("YES".equalsIgnoreCase(this.plantTrade) && this.plantPrice != null && this.plantPrice > 0) {
+            throw new IllegalArgumentException("A plant up for trade can't be sold.");
+        }
+    }
+
 
     public Users getUser() {
         return user;
