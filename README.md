@@ -1,3 +1,15 @@
+# Plant Exchange API 🌱
+## Summary
+This project is a REST API for a plant exchange application, built using Spring Boot. The API allows users to exchange or sell plants and is connected to a MongoDB database for data storage.
+
+### Key Features
+CRUD operations for managing plants and user listings
+MongoDB integration for storing plant data
+RESTful API endpoints to facilitate plant exchanges and sales
+Postman documentation and testing to ensure API reliability
+This API is designed to provide a structured and efficient way for plant enthusiasts to connect and trade their plants.
+
+
 ## Github repo
 https://github.com/simonrintala/backend_uppgift_1
 
